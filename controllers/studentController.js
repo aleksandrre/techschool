@@ -1,5 +1,4 @@
 // studentController.js
-import multer from "multer";
 import { Day } from "../models/dayModel.js";
 import { Group } from "../models/groupModel.js";
 import { Student } from "../models/studentModel.js";

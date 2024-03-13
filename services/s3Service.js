@@ -6,11 +6,17 @@ import {
   GetObjectCommand,
 } from "@aws-sdk/client-s3";
 import { v4 as uuidv4 } from "uuid";
-
+import dotenv from "dotenv";
+dotenv.config();
 const s3Client = new S3Client({
   region: process.env.BUCKET_REGION,
+  credentials: {
+    accessKeyId: process.env.ACCESS_KEY,
+    secretAccessKey: process.env.SECRET_ACCESS_KEY,
+  },
 });
 
+console.log(process.env.ACCESS_KEY);
 export const uploadFilesToS3 = async (files) => {
   return Promise.all(
     files.map(async (file) => {
@@ -23,7 +29,6 @@ export const uploadFilesToS3 = async (files) => {
       };
 
       try {
-        console.log(process.env.BUCKET_REGION);
         await s3Client.send(new PutObjectCommand(params));
         return fileName; // Return the S3 file path
       } catch (uploadError) {
