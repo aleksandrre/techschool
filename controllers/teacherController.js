@@ -152,6 +152,7 @@ export const deleteHomeworkFile = async (req, res) => {
     res.status(500).json({ message: "Internal Server Error" });
   }
 };
+
 export const writeAttandance = async (req, res) => {
   try {
     // Extract parameters from the request

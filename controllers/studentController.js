@@ -119,7 +119,7 @@ export const deleteLaborFromDay = async (req, res) => {
 };
 
 ///////////////
-
+//sheidzleba coomonshi gatana
 export const getTeacherFilePath = async (req, res) => {
   try {
     // Extract parameters from the request
@@ -183,7 +183,7 @@ export const getStudentActiveDayForDashboard = async (req, res) => {
   }
 };
 
-export const getGroupDirectDayHomework = async (req, res) => {
+export const getStudentDirectDayHomework = async (req, res) => {
   try {
     const { groupId, dayId } = req.params;
     const { userId } = req.user;
@@ -227,7 +227,7 @@ export const getGroupDirectDayHomework = async (req, res) => {
   }
 };
 
-export const getAllDayHomework = async (req, res) => {
+export const getStudentAllDayHomework = async (req, res) => {
   try {
     const { groupId } = req.params;
     const { userId } = req.user;
@@ -271,7 +271,7 @@ export const getAllDayHomework = async (req, res) => {
   }
 };
 
-export const getGroupAllDayInfo = async (req, res) => {
+export const getStudentAllDayInfo = async (req, res) => {
   try {
     const { groupId } = req.params;
     const { userId } = req.user;

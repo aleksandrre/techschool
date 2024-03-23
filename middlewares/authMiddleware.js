@@ -4,6 +4,7 @@ import dotenv from "dotenv";
 dotenv.config();
 
 export function authenticateToken(req, res, next) {
+  console.log(req.headers.cookie);
   const authCookie = req.headers.cookie
     ?.split(";")
     .find((c) => c.trim().startsWith("accessToken="));

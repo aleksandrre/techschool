@@ -1,5 +1,6 @@
 import express from "express";
 import {
+  addUserPhoto,
   downloadFile,
   getGroupAllDayResources,
   getGroupDays,
@@ -34,5 +35,7 @@ router.get(
   authorize(["teacher"]),
   getGroupDays
 );
+
+router.post("/addUserPhoto", authenticateToken, addUserPhoto);
 
 export default router;

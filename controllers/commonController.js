@@ -250,3 +250,40 @@ export const getGroupDays = async (req, res) => {
     res.status(500).json({ error: "Internal Server Error" });
   }
 };
+
+export const addUserPhoto = async (req, res) => {
+  try {
+    const { userId } = req.user;
+
+    const file = await configureMulter(1)(req, res);
+
+    if (!userId) {
+      return res.status(400).json({ error: "User ID not found" });
+    }
+
+    if (!file || file.length === 0) {
+      console.error("No file found in the request.");
+      return res.status(400).json({ error: "No files found in the request" });
+    }
+
+    const user =
+      (await Student.findById(userId)) || (await Teacher.findById(userId));
+
+    if (!user) {
+      return res.status(404).json({ error: "User not found" });
+    }
+
+    const filePaths = await uploadFilesToS3([file]);
+
+    // Update the user model with the S3 file path
+    user.photo = filePaths[0]; // Assuming you're using only one file for a   photo
+    await user.save();
+
+    return res
+      .status(200)
+      .json({ success: "Photo added successfully", filePath: filePaths[0] });
+  } catch (error) {
+    console.error(error);
+    return res.status(500).json({ error: "Internal Server Error" });
+  }
+};

@@ -53,6 +53,7 @@ export const login = async (req, res) => {
     const accessToken = generateAccessToken(user);
 
     // Send the token to the client
+    //დავაკომენტაროთ სექური და ონლი
     res.cookie("accessToken", accessToken, {
       httpOnly: true,
       secure: true,
@@ -137,39 +138,55 @@ export const registerUser = async (req, res) => {
   }
 };
 
-export const addUserPhoto = async (req, res) => {
+export const changePassword = async (req, res) => {
+  const { oldPassword, newPassword, confirmNewPassword } = req.body;
+  const { username, role } = req.user;
+
   try {
-    const { userId } = req.user;
-
-    const file = await configureMulter(1)(req, res);
-
-    if (!userId) {
-      return res.status(400).json({ error: "User ID not found" });
+    // Check if new passwords match
+    if (newPassword !== confirmNewPassword) {
+      return res.status(400).json({ message: "New passwords do not match" });
     }
 
-    if (!file || file.length === 0) {
-      console.error("No file found in the request.");
-      return res.status(400).json({ error: "No files found in the request" });
+    // Determine which model to use based on the role
+    let UserModel;
+    switch (role) {
+      case "student":
+        UserModel = Student;
+        break;
+      case "teacher":
+        UserModel = Teacher;
+        break;
+      case "admin":
+        UserModel = Admin;
+        break;
+      default:
+        return res.status(400).json({ message: "Invalid role" });
     }
 
-    const user =
-      (await Student.findById(userId)) || (await Teacher.findById(userId));
+    // Find the user by username
+    const user = await UserModel.findOne({ username });
 
     if (!user) {
-      return res.status(404).json({ error: "User not found" });
+      return res.status(404).json({ message: "User not found" });
     }
 
-    const filePaths = await uploadFilesToS3([file]);
+    // Verify the old password
+    const passwordMatch = await bcrypt.compare(oldPassword, user.password);
+    if (!passwordMatch) {
+      return res.status(401).json({ message: "Incorrect old password" });
+    }
 
-    // Update the user model with the S3 file path
-    user.photo = filePaths[0]; // Assuming you're using only one file for a   photo
+    // Hash the new password
+    const hashedPassword = await bcrypt.hash(newPassword, 10);
+
+    // Update the password
+    user.password = hashedPassword;
     await user.save();
 
-    return res
-      .status(200)
-      .json({ success: "Photo added successfully", filePath: filePaths[0] });
+    res.status(200).json({ message: "Password changed successfully" });
   } catch (error) {
-    console.error(error);
-    return res.status(500).json({ error: "Internal Server Error" });
+    console.error("Error changing password:", error);
+    res.status(500).json({ message: "Internal Server Error" });
   }
 };

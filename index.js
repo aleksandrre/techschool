@@ -9,7 +9,6 @@ import adminRoute from "./routes/adminRoute.js";
 import commonRoute from "./routes/commonRoute.js";
 import bcrypt from "bcrypt";
 
-// import informationRoute from "./routes/informationRoute.js";
 import potentialRoute from "./routes/potentialStudentRoute.js";
 import { Admin } from "./models/adminModel.js";
 
@@ -24,7 +23,6 @@ app.use("/auth", authRoute);
 app.use("/student", studentRoute);
 app.use("/teacher", teacherRoute);
 app.use("/admin", adminRoute);
-// app.use("/info", informationRoute);
 app.use("/potentialStudent", potentialRoute);
 app.use("/common", commonRoute);
 

@@ -1,7 +1,7 @@
 // routes/authRoutes.js
 import express from "express";
 import {
-  addUserPhoto,
+  changePassword,
   login,
   logout,
   registerUser,
@@ -14,6 +14,6 @@ router.post("/login", login);
 router.post("/logout", logout);
 router.post("/register", authenticateToken, registerUser);
 
-router.post("/addUserPhoto", authenticateToken, addUserPhoto);
+router.post("/change-password", authenticateToken, changePassword);
 
 export default router;

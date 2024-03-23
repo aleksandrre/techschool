@@ -4,9 +4,9 @@ const router = express.Router();
 import {
   addLaborToDay,
   deleteLaborFromDay,
-  getAllDayHomework,
-  getGroupAllDayInfo,
-  getGroupDirectDayHomework,
+  getStudentAllDayHomework,
+  getStudentAllDayInfo,
+  getStudentDirectDayHomework,
   getStudentActiveDayForDashboard,
   getTeacherFilePath,
 } from "../controllers/studentController.js";
@@ -28,17 +28,21 @@ router.get(
   getStudentActiveDayForDashboard
 );
 
-router.get("/group/:groupId/alldayinfo", authenticateToken, getGroupAllDayInfo);
+router.get(
+  "/group/:groupId/alldayinfo",
+  authenticateToken,
+  getStudentAllDayInfo
+);
 
 router.get(
-  "/group/:groupId/day/:dayId/getGroupDirectDayHomework",
+  "/group/:groupId/day/:dayId/getStudentDirectDayHomework",
   authenticateToken,
-  getGroupDirectDayHomework
+  getStudentDirectDayHomework
 );
 router.get(
-  "/group/:groupId/getAllDayHomework",
+  "/group/:groupId/getStudentAllDayHomework",
   authenticateToken,
-  getAllDayHomework
+  getStudentAllDayHomework
 );
 router.get(
   "/day/:dayId/getTeacherFilePath",
