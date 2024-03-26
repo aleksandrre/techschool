@@ -12,6 +12,7 @@ export const createGroup = async (req, res) => {
     dayOff,
     times,
     dayNames,
+    syllabus,
   } = req.body;
 
   try {

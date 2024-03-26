@@ -8,7 +8,9 @@ export const createDays = async (
   startingDateWithTime,
   daysLeft,
   dayOff,
-  times
+  times,
+  syllabus
+  //მასივი დღის თემების და თითო დღეს თითო დღის თემა.
 ) => {
   let currentDate = new Date(startingDateWithTime);
   let index = 0;
@@ -24,6 +26,7 @@ export const createDays = async (
         dayStatus: "future",
         group: group._id,
         index: index + 1,
+        dayTheme: syllabus[syllabus.length - daysLeft],
       });
       await newDay.save();
       group.days.push(newDay._id);
