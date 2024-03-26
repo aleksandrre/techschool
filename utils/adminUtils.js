@@ -25,7 +25,7 @@ export const createDays = async (
         dayStatus: "future",
         group: group._id,
         index: index + 1,
-        dayTheme: syllabus[syllabus.length - daysLeft],
+        dayTheme: "onetwothree",
       });
       await newDay.save();
       group.days.push(newDay._id);
