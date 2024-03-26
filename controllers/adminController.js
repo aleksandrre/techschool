@@ -35,7 +35,8 @@ export const createGroup = async (req, res) => {
       daysLeft,
       dayOff,
       times,
-      dayNames
+      dayNames,
+      syllabus
     );
 
     await newGroup.save();
