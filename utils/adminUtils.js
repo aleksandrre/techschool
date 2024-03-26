@@ -10,7 +10,6 @@ export const createDays = async (
   dayOff,
   times,
   syllabus
-  //მასივი დღის თემების და თითო დღეს თითო დღის თემა.
 ) => {
   let currentDate = new Date(startingDateWithTime);
   let index = 0;
