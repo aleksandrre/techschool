@@ -13,7 +13,7 @@ export const createDays = async (
 ) => {
   let currentDate = new Date(startingDateWithTime);
   let index = 0;
-
+  console.log(syllabus);
   while (daysLeft > 0) {
     const formattedDate = currentDate.toISOString().split("T")[0];
     const formattedTime = times[index % times.length];
@@ -25,7 +25,7 @@ export const createDays = async (
         dayStatus: "future",
         group: group._id,
         index: index + 1,
-        dayTheme: syllabus[syllabus.length - daysLeft],
+        dayTheme: syllabus[syllabus.length - daysLeft], //რაღაც პრობლემაა
       });
       await newDay.save();
       group.days.push(newDay._id);
