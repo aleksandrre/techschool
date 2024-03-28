@@ -56,7 +56,7 @@ export const login = async (req, res) => {
     //დავაკომენტაროთ სექური და ონლი
     res.cookie("accessToken", accessToken, {
       httpOnly: true,
-      secure: true,
+
       sameSite: "strict",
     });
     res.status(200).json({
