@@ -7,7 +7,7 @@ export function authenticateToken(req, res, next) {
   const authCookie = req.headers.cookie
     ?.split(";")
     .find((c) => c.trim().startsWith("accessToken="));
-
+  console.log(req.headers + "req.headers");
   if (!authCookie) {
     return res
       .status(330)

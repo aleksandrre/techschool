@@ -54,11 +54,7 @@ export const login = async (req, res) => {
 
     // Send the token to the client
     //დავაკომენტაროთ სექური და ონლი
-    res.cookie("accessToken", accessToken, {
-      httpOnly: true,
-
-      sameSite: "strict",
-    });
+    res.cookie("accessToken", accessToken);
     res.status(200).json({
       message: "Login successful",
       user: { username: user.username, role: user.role },
