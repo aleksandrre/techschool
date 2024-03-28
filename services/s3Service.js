@@ -16,7 +16,6 @@ const s3Client = new S3Client({
   },
 });
 
-console.log(process.env.ACCESS_KEY);
 export const uploadFilesToS3 = async (files) => {
   return Promise.all(
     files.map(async (file) => {
@@ -46,7 +45,6 @@ export const deleteFileFromS3 = async (filePath) => {
 
   try {
     await s3Client.send(new DeleteObjectCommand(params));
-    console.log(`File deleted successfully from S3: ${filePath}`);
   } catch (deleteError) {
     console.error(deleteError);
     throw new Error("Error deleting file from S3");

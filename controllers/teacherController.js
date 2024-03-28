@@ -39,7 +39,6 @@ export async function activateDayStatus(req, res) {
     if (!updatedDay) {
       return res.status(404).json({ error: "Day not found" });
     }
-    console.log("Updating days with dayId:", dayId, "in group:", groupId);
 
     // Find all previous days in the group and update their dayStatus to "past"
     const resultPast = await Day.updateMany(

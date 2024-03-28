@@ -29,7 +29,6 @@ export const createDays = async (
       });
       await newDay.save();
       group.days.push(newDay._id);
-      console.log(formattedDateTime);
       daysLeft--;
     }
 
