@@ -15,7 +15,12 @@ import { Admin } from "./models/adminModel.js";
 const PORT = 3001;
 const app = express();
 
-app.use(cors());
+app.use(
+  cors({
+    origin: true,
+    credentials: true,
+  })
+);
 app.use(express.json());
 
 // Routes
