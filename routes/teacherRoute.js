@@ -10,6 +10,7 @@ import {
   writeAttandance,
   writeLaborMark,
   getDayStudentsInfo,
+  updatesyllabus,
 } from "../controllers/teacherController.js";
 
 // Route to get student information with group details
@@ -52,5 +53,8 @@ router.get(
   authorize(["teacher"]),
   getDayStudentsInfo
 );
+
+//this is not tested
+router.put("groups/:groupId/day/:dayId/update-syllabus", updatesyllabus);
 
 export default router;

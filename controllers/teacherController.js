@@ -302,3 +302,46 @@ export const getDayStudentsInfo = async (req, res) => {
     res.status(500).json({ error: "Internal Server Error" });
   }
 };
+
+//it is not tested
+export const updatesyllabus = async (req, res) => {
+  try {
+    const { userId } = req.user;
+    const { groupId, dayId } = req.params;
+    const { dayTheme } = req.body;
+
+    // Find the teacher
+    const teacher = await Teacher.findById(userId);
+    if (!teacher) {
+      return res.status(404).json({ error: "Teacher not found" });
+    }
+
+    // Ensure the teacher is associated with the group
+    if (!teacher.group.includes(groupId)) {
+      return res
+        .status(403)
+        .json({ error: "Teacher does not have access to this group" });
+    }
+
+    // Find the group
+    const group = await Group.findById(groupId);
+    if (!group) {
+      return res.status(404).json({ error: "Group not found" });
+    }
+
+    // Find and update the current day's dayStatus to "active"
+    const updatedDay = await Day.findByIdAndUpdate(
+      dayId,
+      { dayTheme: dayTheme },
+      { new: true }
+    );
+    if (!updatedDay) {
+      return res.status(404).json({ error: "Day not found" });
+    }
+
+    res.status(200).json(updatedDay);
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ error: "Internal server error" });
+  }
+};
