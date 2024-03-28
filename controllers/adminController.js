@@ -14,7 +14,7 @@ export const createGroup = async (req, res) => {
     dayNames,
     syllabus,
   } = req.body;
-
+  console.log(syllabus + "admin");
   try {
     const existingGroup = await Group.findOne({ groupName });
 
