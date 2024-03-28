@@ -13,7 +13,7 @@ export const createDays = async (
 ) => {
   let currentDate = new Date(startingDateWithTime);
   let index = 0;
-  console.log(syllabus);
+  console.log(syllabus + "this is syllabus");
   while (daysLeft > 0) {
     const formattedDate = currentDate.toISOString().split("T")[0];
     const formattedTime = times[index % times.length];
