@@ -345,3 +345,37 @@ export const updatesyllabus = async (req, res) => {
     res.status(500).json({ error: "Internal server error" });
   }
 };
+
+export const deletestudent = async (req, res) => {
+  const { groupId, studentId } = req.params;
+
+  try {
+    // Find the group by ID
+    const group = await Group.findById(groupId);
+
+    if (!group) {
+      return res.status(404).json({ message: "Group not found" });
+    }
+
+    // Find the student by ID
+    const student = await Student.findById(studentId);
+
+    if (!student) {
+      return res.status(404).json({ message: "Student not found" });
+    }
+
+    // Remove the student from the group
+    group.students.pull(studentId);
+    await group.save();
+
+    // Delete the student from the Student model
+    await student.remove();
+
+    res.json({
+      message: "Student deleted from group and student model successfully",
+    });
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ message: "Internal server error" });
+  }
+};

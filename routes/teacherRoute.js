@@ -11,6 +11,7 @@ import {
   writeLaborMark,
   getDayStudentsInfo,
   updatesyllabus,
+  deletestudent,
 } from "../controllers/teacherController.js";
 
 // Route to get student information with group details
@@ -57,4 +58,10 @@ router.get(
 //this is not tested
 router.put("groups/:groupId/day/:dayId/update-syllabus", updatesyllabus);
 
+router.delete(
+  "group/:groupId/student/:studentId/deletestudent",
+  authenticateToken,
+  authorize(["teacher"]),
+  deletestudent
+);
 export default router;
