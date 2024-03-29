@@ -369,7 +369,7 @@ export const deletestudent = async (req, res) => {
     await group.save();
 
     // Delete the student from the Student model
-    await student.remove();
+    await Student.findByIdAndDelete(studentId);
 
     res.json({
       message: "Student deleted from group and student model successfully",
