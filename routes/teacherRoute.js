@@ -56,11 +56,11 @@ router.get(
 );
 
 //this is not tested
-router.put("groups/:groupId/day/:dayId/update-syllabus", updatesyllabus);
+router.put("/groups/:groupId/day/:dayId/update-syllabus", updatesyllabus);
 
 //add comment
 router.delete(
-  "groups/:groupId/student/:studentId/deletestudent",
+  "/groups/:groupId/student/:studentId/deletestudent",
   authenticateToken,
   authorize(["teacher"]),
   deletestudent
