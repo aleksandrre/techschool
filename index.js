@@ -32,6 +32,7 @@ app.use("/potentialStudent", potentialRoute);
 app.use("/common", commonRoute);
 
 // Database connection
+
 mongoose
   .connect(
     // "mongodb://localhost:27017/your_database_name",
