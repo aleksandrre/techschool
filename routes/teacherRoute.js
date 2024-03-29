@@ -60,7 +60,7 @@ router.put("groups/:groupId/day/:dayId/update-syllabus", updatesyllabus);
 
 //add comment
 router.delete(
-  "group/:groupId/student/:studentId/deletestudent",
+  "groups/:groupId/student/:studentId/deletestudent",
   authenticateToken,
   authorize(["teacher"]),
   deletestudent
