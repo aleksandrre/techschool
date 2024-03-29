@@ -56,11 +56,6 @@ export const login = async (req, res) => {
     //დავაკომენტაროთ სექური და ონლი
     // res.cookie("accessToken", accessToken);
     res.json({ accessToken: accessToken });
-
-    res.status(200).json({
-      message: "Login successful",
-      user: { username: user.username, role: user.role },
-    });
   } catch (error) {
     console.error("Error during login:", error);
     res
