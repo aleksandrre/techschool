@@ -49,7 +49,7 @@ router.post(
 
 //
 router.get(
-  "/group/:groupId/day/:dayId/getDayStudentsInfo",
+  "/groups/:groupId/day/:dayId/getDayStudentsInfo",
   authenticateToken,
   authorize(["teacher"]),
   getDayStudentsInfo
