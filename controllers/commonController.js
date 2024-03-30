@@ -251,6 +251,7 @@ export const getGroupDays = async (req, res) => {
   }
 };
 
+//დასატესტია
 export const addUserPhoto = async (req, res) => {
   try {
     const { userId } = req.user;
@@ -273,11 +274,18 @@ export const addUserPhoto = async (req, res) => {
       return res.status(404).json({ error: "User not found" });
     }
 
+    const previousPhotoPath = user.photo;
+
     const filePaths = await uploadFilesToS3([file]);
 
-    // Update the user model with the S3 file path
-    user.photo = filePaths[0]; // Assuming you're using only one file for a   photo
+    // Update the user model with the new S3 file path
+    user.photo = filePaths[0]; // Assuming you're using only one file for a photo
     await user.save();
+
+    // If there's a previous photo path, delete it from S3
+    if (previousPhotoPath) {
+      await deleteFileFromS3(previousPhotoPath);
+    }
 
     return res
       .status(200)
