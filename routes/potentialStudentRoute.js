@@ -2,6 +2,8 @@
 import express from "express";
 
 import {
+  deleteAllPotentialStudents,
+  deletePotentialStudent,
   getAllPotentialStudents,
   savePotentialStudent,
 } from "../controllers/potentialStudentController.js";
@@ -17,5 +19,14 @@ router.get(
   getAllPotentialStudents
 );
 router.post("/register", savePotentialStudent);
+
+//გასატესტია
+router.delete(
+  "/:potentialStudentId/deletePotentialStudent",
+  deletePotentialStudent
+);
+
+//გასატესტია
+router.delete("/deleteAll", deleteAllPotentialStudents); // Define the new DELETE route
 
 export default router;

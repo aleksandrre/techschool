@@ -14,4 +14,6 @@ router.post(
   createGroup
 );
 
+//მასწავლებლის წაშლა
+
 export default router;
