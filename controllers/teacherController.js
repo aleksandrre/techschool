@@ -292,11 +292,12 @@ export const getDayStudentsInfo = async (req, res) => {
         photo: student.photo,
         attendanceStatus: attendance ? attendance.status : false,
         laborFilePath: homework ? homework.laborFilePath : null,
-        teacherFilePath: day.homework.teacherFilePath,
       };
     });
 
-    res.status(200).json(studentsInfo);
+    res
+      .status(200)
+      .json({ studentsInfo, teacherFilePath: day.homework.teacherFilePath });
   } catch (error) {
     console.error(error);
     res.status(500).json({ error: "Internal Server Error" });
