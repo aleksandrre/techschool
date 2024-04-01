@@ -380,3 +380,29 @@ export const deletestudent = async (req, res) => {
     res.status(500).json({ message: "Internal server error" });
   }
 };
+
+export const addresource = async (req, res) => {
+  const { dayId } = req.params;
+  const { title, path } = req.body;
+
+  try {
+    // Find the day by its ID
+    const day = await Day.findById(dayId);
+
+    if (!day) {
+      return res.status(404).json({ error: "Day not found" });
+    }
+
+    // Add the resource to the day's resources array
+    day.resources.push({ title, path });
+
+    // Save the updated day
+    await day.save();
+
+    return res
+      .status(200)
+      .json({ message: "Resource added successfully", day });
+  } catch (error) {
+    return res.status(500).json({ error: "Internal server error" });
+  }
+};
