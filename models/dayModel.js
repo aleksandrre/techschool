@@ -36,6 +36,9 @@ const daySchema = new mongoose.Schema({
   dayTheme: {
     type: String,
   },
+  dayThemeText: {
+    type: String,
+  },
   index: {
     type: Number,
   },
