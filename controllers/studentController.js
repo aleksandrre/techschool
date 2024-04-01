@@ -170,11 +170,15 @@ export const getStudentActiveDayForDashboard = async (req, res) => {
         index: activeDay.index,
         resources: activeDay.resources,
         dayTheme: activeDay.dayTheme,
-        dayThemeText: activeDay.dayThemeText,
-        zipFilePath: activeDay.homework.zipFilePath,
-        userLabors: activeDay.homework.labors.find(
-          (labor) => labor.student.toString() === userId
-        ),
+        dayThemeText: activeDay.dayThemeText ? activeDay.dayThemeText : null,
+        zipFilePath: activeDay.homework.zipFilePath
+          ? activeDay.homework.zipFilePath
+          : null,
+        userLabors: activeDay.homework.labors
+          ? activeDay.homework.labors.find(
+              (labor) => labor.student.toString() === userId
+            )
+          : null,
       },
     });
   } catch (error) {
