@@ -406,3 +406,34 @@ export const addresource = async (req, res) => {
     return res.status(500).json({ error: "Internal server error" });
   }
 };
+
+export const deleteresource = async (req, res) => {
+  const { dayId } = req.params;
+  const resourceIndex = req.body.resourceIndex; // Assuming you send the resourceIndex in the request body
+
+  try {
+    // Find the day by its ID
+    const day = await Day.findById(dayId);
+
+    if (!day) {
+      return res.status(404).json({ error: "Day not found" });
+    }
+
+    // Check if resourceIndex is within bounds
+    if (resourceIndex < 0 || resourceIndex >= day.resources.length) {
+      return res.status(400).json({ error: "Invalid resource index" });
+    }
+
+    // Remove the resource from the array
+    day.resources.splice(resourceIndex, 1);
+
+    // Save the updated day
+    await day.save();
+
+    return res
+      .status(200)
+      .json({ message: "Resource deleted successfully", day });
+  } catch (error) {
+    return res.status(500).json({ error: "Internal server error" });
+  }
+};

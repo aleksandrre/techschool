@@ -13,6 +13,7 @@ import {
   updatesyllabus,
   deletestudent,
   addresource,
+  deleteresource,
 } from "../controllers/teacherController.js";
 
 // Route to get student information with group details
@@ -72,5 +73,12 @@ router.post(
   authenticateToken,
   authorize(["teacher"]),
   addresource
+);
+//this is not tested
+router.delete(
+  "/days/:dayId/deleteresource",
+  authenticateToken,
+  authorize(["teacher"]),
+  deleteresource
 );
 export default router;
