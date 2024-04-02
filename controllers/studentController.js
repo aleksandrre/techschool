@@ -134,7 +134,13 @@ export const getTeacherFilePath = async (req, res) => {
     }
 
     // Return the teacherFilePath value
-    res.status(200).json({ teacherFilePath: day.homework.teacherFilePath });
+    res
+      .status(200)
+      .json({
+        teacherFilePath: day.homework.teacherFilePath
+          ? day.homework.teacherFilePath
+          : null,
+      });
   } catch (error) {
     console.error(error);
     res.status(500).json({ message: "Internal Server Error" });
@@ -219,7 +225,9 @@ export const getStudentDirectDayHomework = async (req, res) => {
     // Extract relevant information
     const directDayHomework = {
       dayId: selectedDay._id,
-      zipFilePath: selectedDay.homework.zipFilePath,
+      zipFilePath: selectedDay.homework.zipFilePath
+        ? selectedDay.homework.zipFilePath
+        : null,
       laborFilePath: labor ? labor.laborFilePath : null,
     };
 
