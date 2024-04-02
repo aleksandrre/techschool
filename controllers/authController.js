@@ -55,7 +55,7 @@ export const login = async (req, res) => {
     // Send the token to the client
     //დავაკომენტაროთ სექური და ონლი
     // res.cookie("accessToken", accessToken);
-    res.json({ accessToken: accessToken });
+    res.json({ accessToken: accessToken, role: user.role });
   } catch (error) {
     console.error("Error during login:", error);
     res
