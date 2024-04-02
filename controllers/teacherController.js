@@ -259,6 +259,7 @@ export const writeLaborMark = async (req, res) => {
   }
 };
 
+//გვიგზავნის ინფორმაციას ერთი დღის სტუდენტების შესახებ
 export const getDayStudentsInfo = async (req, res) => {
   try {
     const { groupId, dayId } = req.params;
