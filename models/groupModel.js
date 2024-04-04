@@ -20,6 +20,7 @@ const groupSchema = new mongoose.Schema({
   teacher: {
     type: mongoose.Schema.Types.ObjectId,
     ref: "Teacher",
+    default: null,
   },
   students: [
     {
