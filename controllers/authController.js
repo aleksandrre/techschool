@@ -151,40 +151,45 @@ export const registerUser = async (req, res) => {
       let existingTeacher = await Teacher.findOne({ username });
 
       if (existingTeacher) {
-        // If teacher exists, add the group to teacher's groups
-        if (!existingTeacher.group.includes(groupId)) {
-          console.log("pirveli");
+        // If teacher exists and the group is not assigned to the teacher
+        if (
+          !existingTeacher.group.includes(groupId) &&
+          !existingGroup.teacher
+        ) {
+          // Add the group to teacher's groups
           existingTeacher.group.push(groupId);
           await existingTeacher.save();
-        }
-        // Assign the teacher to the specified group if not already assigned
-        if (!existingGroup.teacher) {
-          console.log("meore");
+
+          // Assign the teacher to the specified group
           await Group.findByIdAndUpdate(groupId, {
             $set: { teacher: existingTeacher._id },
           });
         }
+
         return res.status(200).json({
           message: "Teacher already exists, group added successfully",
         });
+      } else {
+        // If teacher doesn't exist, create a new teacher and assign the group to the teacher
+        const newTeacher = new Teacher({
+          username,
+          password: hashedPassword,
+          email,
+          group: [groupId],
+        });
+        await newTeacher.save();
+
+        // Assign the teacher to the specified group
+        await Group.findByIdAndUpdate(groupId, {
+          $set: { teacher: newTeacher._id },
+        });
+
+        return res
+          .status(201)
+          .json({ message: "Teacher created successfully" });
       }
-
-      // If teacher doesn't exist, create a new teacher
-      const newTeacher = new Teacher({
-        username,
-        password: hashedPassword,
-        email,
-        group: [groupId], // Initialize groups array with groupId
-      });
-      await newTeacher.save();
-
-      // Assign the teacher to the specified group
-      await Group.findByIdAndUpdate(groupId, {
-        $set: { teacher: newTeacher._id },
-      });
-
-      return res.status(201).json({ message: "Teacher created successfully" });
     } else if (signedInUserRole === "teacher") {
+      // Your logic for student registration remains unchanged
       // Check if the student already exists
       let existingStudent = await Student.findOne({ username });
 
