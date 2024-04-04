@@ -153,12 +153,13 @@ export const registerUser = async (req, res) => {
       if (existingTeacher) {
         // If teacher exists, add the group to teacher's groups
         if (!existingTeacher.group.includes(groupId)) {
+          console.log("pirveli");
           existingTeacher.group.push(groupId);
           await existingTeacher.save();
         }
         // Assign the teacher to the specified group if not already assigned
         if (!existingGroup.teacher) {
-          console.log("akaris");
+          console.log("meore");
           await Group.findByIdAndUpdate(groupId, {
             $set: { teacher: existingTeacher._id },
           });
