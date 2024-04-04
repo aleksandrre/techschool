@@ -158,15 +158,14 @@ export const registerUser = async (req, res) => {
         }
         // Assign the teacher to the specified group if not already assigned
         if (!existingGroup.teacher) {
+          console.log("akaris");
           await Group.findByIdAndUpdate(groupId, {
             $set: { teacher: existingTeacher._id },
           });
         }
-        return res
-          .status(200)
-          .json({
-            message: "Teacher already exists, group added successfully",
-          });
+        return res.status(200).json({
+          message: "Teacher already exists, group added successfully",
+        });
       }
 
       // If teacher doesn't exist, create a new teacher
@@ -198,11 +197,9 @@ export const registerUser = async (req, res) => {
         await Group.findByIdAndUpdate(groupId, {
           $addToSet: { students: existingStudent._id },
         });
-        return res
-          .status(200)
-          .json({
-            message: "Student already exists, group added successfully",
-          });
+        return res.status(200).json({
+          message: "Student already exists, group added successfully",
+        });
       }
 
       // If student doesn't exist, create a new student
