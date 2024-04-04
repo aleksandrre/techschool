@@ -169,7 +169,7 @@ export const registerUser = async (req, res) => {
           });
         }
 
-        return res.status(200).json({
+        return res.status(409).json({
           message:
             "Teacher already exists, existingTeacher includes this group or this group already have another teacher",
         });
@@ -191,6 +191,10 @@ export const registerUser = async (req, res) => {
           return res
             .status(201)
             .json({ message: "Teacher created successfully" });
+        } else {
+          return res.status(409).json({
+            message: "group has teacher already",
+          });
         }
       }
     } else if (signedInUserRole === "teacher") {
