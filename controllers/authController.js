@@ -174,23 +174,24 @@ export const registerUser = async (req, res) => {
             "Teacher already exists, existingTeacher includes this group or this group already have another teacher",
         });
       } else {
-        // If teacher doesn't exist, create a new teacher and assign the group to the teacher
-        const newTeacher = new Teacher({
-          username,
-          password: hashedPassword,
-          email,
-          group: [groupId],
-        });
-        await newTeacher.save();
+        if (!existingGroup.teacher) {
+          const newTeacher = new Teacher({
+            username,
+            password: hashedPassword,
+            email,
+            group: [groupId],
+          });
+          await newTeacher.save();
 
-        // Assign the teacher to the specified group
-        await Group.findByIdAndUpdate(groupId, {
-          $set: { teacher: newTeacher._id },
-        });
+          // Assign the teacher to the specified group
+          await Group.findByIdAndUpdate(groupId, {
+            $set: { teacher: newTeacher._id },
+          });
 
-        return res
-          .status(201)
-          .json({ message: "Teacher created successfully" });
+          return res
+            .status(201)
+            .json({ message: "Teacher created successfully" });
+        }
       }
     } else if (signedInUserRole === "teacher") {
       // Your logic for student registration remains unchanged
