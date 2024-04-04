@@ -164,10 +164,14 @@ export const registerUser = async (req, res) => {
           await Group.findByIdAndUpdate(groupId, {
             $set: { teacher: existingTeacher._id },
           });
+          return res.status(200).json({
+            message: "Teacher already exists, group added successfully",
+          });
         }
 
         return res.status(200).json({
-          message: "Teacher already exists, group added successfully",
+          message:
+            "Teacher already exists, existingTeacher includes this group or this group already have another teacher",
         });
       } else {
         // If teacher doesn't exist, create a new teacher and assign the group to the teacher
