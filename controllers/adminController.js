@@ -14,6 +14,7 @@ export const createGroup = async (req, res) => {
     times,
     dayNames,
     syllabus,
+    groupInfo,
   } = req.body;
 
   try {
@@ -27,6 +28,7 @@ export const createGroup = async (req, res) => {
       groupName,
       times: times,
       dayNames: dayNames,
+      groupInfo: groupInfo,
     });
 
     await createDays(
