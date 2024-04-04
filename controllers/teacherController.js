@@ -65,7 +65,7 @@ export async function activateDayStatus(req, res) {
   }
 }
 
-export const addHomeworkFile = async (req, res) => {
+export const addTeacherHomeworkFile = async (req, res) => {
   try {
     // Extract group ID and day ID from request parameters
     const { groupId, dayId } = req.params;
@@ -115,7 +115,7 @@ export const addHomeworkFile = async (req, res) => {
   }
 };
 
-export const deleteHomeworkFile = async (req, res) => {
+export const deleteTeacherHomeworkFile = async (req, res) => {
   try {
     const { groupId, dayId } = req.params;
 

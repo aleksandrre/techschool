@@ -6,7 +6,7 @@ import { Student } from "../models/studentModel.js";
 import { deleteFileFromS3, uploadFilesToS3 } from "../services/s3Service.js";
 import configureMulter from "../services/configureMulter.js";
 
-export const addLaborToDay = async (req, res) => {
+export const addHomework = async (req, res) => {
   try {
     const { dayId } = req.params;
     const { userId } = req.user;
@@ -74,7 +74,7 @@ export const addLaborToDay = async (req, res) => {
 
 // delete labor (homework)
 //test this
-export const deleteLaborFromDay = async (req, res) => {
+export const deleteHomework = async (req, res) => {
   try {
     const { dayId } = req.params;
     const { laborFilePath } = req.body;
@@ -115,33 +115,6 @@ export const deleteLaborFromDay = async (req, res) => {
   } catch (error) {
     console.error(error);
     return res.status(500).json({ message: "Internal Server Error" });
-  }
-};
-
-///////////////
-//sheidzleba coomonshi gatana
-export const getTeacherFilePath = async (req, res) => {
-  try {
-    // Extract parameters from the request
-    const { dayId } = req.params;
-
-    // Find the day by ID
-    const day = await Day.findById(dayId);
-
-    // Check if the day exists
-    if (!day) {
-      return res.status(404).json({ message: "Day not found" });
-    }
-
-    // Return the teacherFilePath value
-    res.status(200).json({
-      teacherFilePath: day.homework.teacherFilePath
-        ? day.homework.teacherFilePath
-        : null,
-    });
-  } catch (error) {
-    console.error(error);
-    res.status(500).json({ message: "Internal Server Error" });
   }
 };
 
@@ -302,13 +275,13 @@ export const getStudentAllDayInfo = async (req, res) => {
       return res.status(404).json({ message: "Group not found" });
     }
 
-    // Extract relevant information from each day
+    // აქ რაღაც არასწორადაა .
     const allDayInfo = group.days.map((day) => ({
       dayId: day._id,
       date: day.date,
       index: day.index,
       mark: day.homework.labors
-        .filter((labor) => labor.student !== null) // Filter out null values
+        .filter((labor) => labor.student !== null) // labor.student == userId - ეს უნდა იყოს
         .map((labor) => ({
           mark: labor.marks,
         }))[0]?.mark,

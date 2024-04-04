@@ -5,8 +5,6 @@ import { authenticateToken } from "../middlewares/authMiddleware.js";
 import { authorize } from "../middlewares/authorizeMiddleware.js";
 import {
   activateDayStatus,
-  addHomeworkFile,
-  deleteHomeworkFile,
   writeAttandance,
   writeLaborMark,
   getDayStudentsInfo,
@@ -14,9 +12,21 @@ import {
   deletestudent,
   addresource,
   deleteresource,
+  addTeacherHomeworkFile,
+  deleteTeacherHomeworkFile,
 } from "../controllers/teacherController.js";
 
-// Route to get student information with group details
+// teacher routes
+// activateDayStatus - მასწავლებელი მონიშნავს აქტიურ დღეს. დღეების dayStatus რომლებიც მაქამდე არიან დაგენერირდება as "past",შემდეგების as "future" და ამ დღის as "active"
+// addHomeworkFile - გასაკეთებელი დავალების ატვირთვა
+// deleteHomeworkFile - გასაკეთებელი დავალების წაშლა
+// writeAttandance - დასწრების დაწერა
+// writeLaborMark - ქულის დაწერა
+// getDayStudentsInfo - აბრუნებს კონკრეტულ დღის ინფორმაციას, ყველა მოსწავლის შესახებ და ამ დღის გასაკეთებელ დავალებას
+// updatesyllabus - შეგვიძლია შევცვალოთ დღის თემა.(შევცვალოთ სილაბუსი)
+// deletestudent - მოსწავლის წაშლა
+// addresource - რესურსის დამატება
+// deleteresource - რესურსის წაშლა
 router.post(
   "/groups/:groupId/days/:dayId/activestatus",
   authenticateToken,
@@ -27,13 +37,13 @@ router.post(
   "/groups/:groupId/days/:dayId/teacherFilePath",
   authenticateToken,
   authorize(["teacher"]),
-  addHomeworkFile
+  addTeacherHomeworkFile
 );
 router.delete(
   "/groups/:groupId/days/:dayId/teacherFilePath",
   authenticateToken,
   authorize(["teacher"]),
-  deleteHomeworkFile
+  deleteTeacherHomeworkFile
 );
 
 router.post(

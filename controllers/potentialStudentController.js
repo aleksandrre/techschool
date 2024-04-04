@@ -3,7 +3,7 @@
 import { PotentialStudent } from "../models/potentialStudentModel.js";
 
 // Controller function to save potential student information
-export const savePotentialStudent = async (req, res) => {
+export const addPotentialStudent = async (req, res) => {
   try {
     const { name, courseName, phone } = req.body;
 

@@ -2,25 +2,25 @@
 import express from "express";
 const router = express.Router();
 import {
-  addLaborToDay,
-  deleteLaborFromDay,
   getStudentAllDayHomework,
   getStudentAllDayInfo,
   getStudentDirectDayHomework,
   getStudentActiveDayForDashboard,
-  getTeacherFilePath,
+  addHomework,
+  deleteHomework,
 } from "../controllers/studentController.js";
 import { authenticateToken } from "../middlewares/authMiddleware.js";
+// student routes
+// addHomework - სტუდენტი ამატებს შესრულებულ დავალებას(ფაილს)
+// deleteHomework - სტუდენტი შლის შესრულებულ დავალებას(ფაილს)
+// getStudentActiveDayForDashboard - აბრუნებს აქტიური დღის შესახებ ინფორმაციას
+// getStudentAllDayInfo - აბრუნებს სტუდენტის ინფორმაციას დღეების მიხედვით (edusoft-ის ბოლო გვერდის მსგავსად)
+// getStudentDirectDayHomework - აბრუნებს კონკრეტული დღის გასაკეთბელ და შესრულებულ დავალებას (ფაილის მისამართებს)
+// getStudentAllDayHomework - აბრუნებს ყველა დღის გასაკეთბელ და შესრულებულ დავალებას (ფაილის მისამართებს) დღეების მიხედვით
 
-// Route to get student information with group details
+router.post("/days/:dayId/add-labor", authenticateToken, addHomework);
 
-router.post("/days/:dayId/add-labor", authenticateToken, addLaborToDay);
-
-router.delete(
-  "/days/:dayId/delete-labor",
-  authenticateToken,
-  deleteLaborFromDay
-);
+router.delete("/days/:dayId/delete-labor", authenticateToken, deleteHomework);
 
 router.get(
   "/group/:groupId/activeDay",
@@ -43,11 +43,6 @@ router.get(
   "/group/:groupId/getStudentAllDayHomework",
   authenticateToken,
   getStudentAllDayHomework
-);
-router.get(
-  "/day/:dayId/getTeacherFilePath",
-  authenticateToken,
-  getTeacherFilePath
 );
 
 export default router;

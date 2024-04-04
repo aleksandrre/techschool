@@ -44,7 +44,7 @@ export const getlaborFilePaths = async (req, res) => {
   }
 };
 
-export const getGroupStudents = async (req, res) => {
+export const getGroupStudentsTeacher = async (req, res) => {
   try {
     const { groupId } = req.params;
 
@@ -293,5 +293,30 @@ export const addUserPhoto = async (req, res) => {
   } catch (error) {
     console.error(error);
     return res.status(500).json({ error: "Internal Server Error" });
+  }
+};
+
+export const getTeacherFilePath = async (req, res) => {
+  try {
+    // Extract parameters from the request
+    const { dayId } = req.params;
+
+    // Find the day by ID
+    const day = await Day.findById(dayId);
+
+    // Check if the day exists
+    if (!day) {
+      return res.status(404).json({ message: "Day not found" });
+    }
+
+    // Return the teacherFilePath value
+    res.status(200).json({
+      teacherFilePath: day.homework.teacherFilePath
+        ? day.homework.teacherFilePath
+        : null,
+    });
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ message: "Internal Server Error" });
   }
 };

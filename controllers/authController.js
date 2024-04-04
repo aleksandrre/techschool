@@ -89,6 +89,7 @@ export const registerUser = async (req, res) => {
       const existingteacher = await Teacher.findOne({ username });
 
       if (existingteacher) {
+        console.log(existingteacher);
         return res.status(400).json({ message: "Username is already taken" });
       }
       const newTeacher = new Teacher({

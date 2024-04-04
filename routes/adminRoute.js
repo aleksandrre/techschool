@@ -6,7 +6,9 @@ import { authenticateToken } from "../middlewares/authMiddleware.js";
 import { authorize } from "../middlewares/authorizeMiddleware.js";
 import { createGroup, deleteTeacher } from "../controllers/adminController.js";
 
-// Route to get student information with group details
+//adminRoutes
+//createGroup - ჯგუფის შექმნა (უმნიშვნელოვანესი როუთი მის გარეშე )
+//deleteTeacher - მასწავლებლის წაშლა
 router.post(
   "/create-group",
   authenticateToken,
@@ -15,7 +17,7 @@ router.post(
 );
 //გასატესტია
 router.delete(
-  "/group/:groupId/teacher/:teacherId/delte-teacherc ",
+  "/group/:groupId/teacher/:teacherId/delte-teacher",
   authenticateToken,
   authorize(["admin"]),
   deleteTeacher
