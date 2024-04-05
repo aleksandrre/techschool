@@ -14,6 +14,10 @@ const potentialStudentSchema = new mongoose.Schema({
     type: String,
     required: true,
   },
+  promoCode: {
+    type: String,
+    required: true,
+  },
 });
 
 export const PotentialStudent = mongoose.model(
