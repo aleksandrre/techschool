@@ -5,11 +5,13 @@ import { PotentialStudent } from "../models/potentialStudentModel.js";
 // Controller function to save potential student information
 export const addPotentialStudent = async (req, res) => {
   try {
-    const { name, courseName, phone } = req.body;
+    const { name, courseName, phone, promoCode } = req.body;
 
     // Validate the required fields
     if (!name || !courseName || !phone) {
-      return res.status(400).json({ message: "All fields are required" });
+      return res.status(400).json({
+        message: "The fields 'name', 'courseName', and 'phone' are required",
+      });
     }
 
     // Check if the phone number is already registered
@@ -22,11 +24,24 @@ export const addPotentialStudent = async (req, res) => {
     }
 
     // Create a new potential student instance
-    const newPotentialStudent = new PotentialStudent({
-      name,
-      courseName,
-      phone,
-    });
+    let newPotentialStudent;
+
+    if (promoCode) {
+      // If promoCode is provided, create a new student with promoCode
+      newPotentialStudent = new PotentialStudent({
+        name,
+        courseName,
+        phone,
+        promoCode,
+      });
+    } else {
+      // If promoCode is not provided, create a new student without promoCode
+      newPotentialStudent = new PotentialStudent({
+        name,
+        courseName,
+        phone,
+      });
+    }
 
     // Save the potential student to the database
     await newPotentialStudent.save();
