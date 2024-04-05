@@ -3,6 +3,7 @@ import express from "express";
 
 import {
   addPotentialStudent,
+  changePaidfieldOfPotentialStudent,
   deleteAllPotentialStudents,
   deletePotentialStudent,
   getAllPotentialStudents,
@@ -39,5 +40,12 @@ router.delete(
   authorize(["admin"]),
   deleteAllPotentialStudents
 ); // Define the new DELETE route
+
+router.put(
+  "/:potentialStudentId/changePaidfieldOfPotentialStudent",
+  authenticateToken,
+  authorize(["admin"]),
+  changePaidfieldOfPotentialStudent
+);
 
 export default router;

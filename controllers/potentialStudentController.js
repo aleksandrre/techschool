@@ -103,3 +103,31 @@ export const deleteAllPotentialStudents = async (req, res) => {
     res.status(500).json({ message: "Internal Server Error" });
   }
 };
+
+//pur request function for change paid field
+export const changePaidfieldOfPotentialStudent = async (req, res) => {
+  const { potentialStudentId } = req.params;
+
+  try {
+    // Check if the potential student exists
+    const potentialStudent = await PotentialStudent.findById(
+      potentialStudentId
+    );
+
+    if (!potentialStudent) {
+      return res.status(404).json({ message: "Potential student not found" });
+    }
+
+    // Toggle the 'paid' field of the potential student
+    potentialStudent.paid = !potentialStudent.paid;
+    await potentialStudent.save();
+
+    return res.status(200).json({
+      message: "Paid field of potential student toggled successfully",
+      paid: potentialStudent.paid,
+    });
+  } catch (error) {
+    console.error("Error toggling paid field of potential student:", error);
+    res.status(500).json({ message: "Internal Server Error" });
+  }
+};
