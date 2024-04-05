@@ -18,6 +18,9 @@ const potentialStudentSchema = new mongoose.Schema({
     type: String,
     required: true,
   },
+  paid: {
+    type: Boolean,
+  },
 });
 
 export const PotentialStudent = mongoose.model(
