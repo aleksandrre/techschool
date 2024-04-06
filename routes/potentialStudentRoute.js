@@ -19,8 +19,8 @@ const router = express.Router();
 // deleteAllPotentialStudents - ყველა პოტენციური სტუდენტის წაშლა
 router.get(
   "/",
-  authenticateToken,
-  authorize(["admin"]),
+  // authenticateToken,
+  // authorize(["admin"]),
   getAllPotentialStudents
 );
 router.post("/register", addPotentialStudent);
