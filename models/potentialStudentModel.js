@@ -16,7 +16,6 @@ const potentialStudentSchema = new mongoose.Schema({
   },
   promoCode: {
     type: String,
-    required: true,
   },
   paid: {
     type: Boolean,
