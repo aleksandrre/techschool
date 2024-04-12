@@ -288,7 +288,7 @@ export const getDayStudentsInfo = async (req, res) => {
       );
 
       return {
-        studentId: student._id || null,
+        studentId: student._id,
         username: student.username,
         photo: student.photo,
         attendanceStatus: attendance.status ? attendance.status : false,
