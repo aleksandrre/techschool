@@ -291,8 +291,8 @@ export const getDayStudentsInfo = async (req, res) => {
         studentId: student._id,
         username: student.username,
         photo: student.photo,
-        attendanceStatus: attendance.status ? attendance.status : false,
-        laborFilePath: homework.laborFilePath ? homework.laborFilePath : null,
+        attendanceStatus: attendance?.status ? attendance.status : false,
+        laborFilePath: homework?.laborFilePath ? homework.laborFilePath : null,
       };
     });
 
