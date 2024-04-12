@@ -298,7 +298,7 @@ export const getDayStudentsInfo = async (req, res) => {
 
     res
       .status(200)
-      .json({ studentsInfo, teacherFilePath: day.homework.teacherFilePath });
+      .json({ studentsInfo, teacherFilePath: "day.homework.teacherFilePath" });
   } catch (error) {
     console.error(error);
     res.status(500).json({ error: "Internal Server Error" });
