@@ -2,7 +2,12 @@ import { Day } from "../models/dayModel.js";
 import { Group } from "../models/groupModel.js";
 import { Student } from "../models/studentModel.js";
 import { Teacher } from "../models/teacherModel.js";
-import { downloadFileFromS3 } from "../services/s3Service.js";
+import configureMulter from "../services/configureMulter.js";
+import {
+  deleteFileFromS3,
+  downloadFileFromS3,
+  uploadFilesToS3,
+} from "../services/s3Service.js";
 
 export const downloadFile = async (req, res) => {
   const { filePath } = req.body;
