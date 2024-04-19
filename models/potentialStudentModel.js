@@ -21,6 +21,9 @@ const potentialStudentSchema = new mongoose.Schema({
     type: Boolean,
     default: false,
   },
+  email: {
+    type: String,
+  },
 });
 
 export const PotentialStudent = mongoose.model(
