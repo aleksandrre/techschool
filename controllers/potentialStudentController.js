@@ -5,10 +5,10 @@ import { PotentialStudent } from "../models/potentialStudentModel.js";
 // Controller function to save potential student information
 export const addPotentialStudent = async (req, res) => {
   try {
-    const { name, courseName, phone, promoCode } = req.body;
+    const { name, courseName, phone, promoCode, email } = req.body;
 
     // Validate the required fields
-    if (!name || !courseName || !phone) {
+    if (!name || !courseName || !phone || !email) {
       return res.status(400).json({
         message: "The fields 'name', 'courseName', and 'phone' are required",
       });
@@ -33,6 +33,7 @@ export const addPotentialStudent = async (req, res) => {
         courseName,
         phone,
         promoCode,
+        email,
       });
     } else {
       // If promoCode is not provided, create a new student without promoCode
@@ -40,6 +41,7 @@ export const addPotentialStudent = async (req, res) => {
         name,
         courseName,
         phone,
+        email,
       });
     }
 
